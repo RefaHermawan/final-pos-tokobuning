@@ -27,19 +27,23 @@ apiClient.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-    // Cek jika error adalah 401 dan belum di-retry
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 
       if (!refreshTokenPromise) {
         refreshTokenPromise = new Promise((resolve, reject) => {
+          // Kita tidak perlu header CSRF untuk refresh token jika endpointnya @csrf_exempt
+          // Tapi jika butuh, kita asumsikan sudah ada di defaults.headers
           axios.post(`${apiClient.defaults.baseURL}/auth/token/refresh/`, {}, {
             withCredentials: true,
-            headers: { 'X-CSRFToken': Cookies.get('csrftoken') },
+            // Header X-CSRFToken akan otomatis ikut jika sudah di-set di defaults
+             headers: {
+                'X-CSRFToken': apiClient.defaults.headers.common['X-CSRFToken']
+             }
           })
           .then(res => {
             const { access } = res.data;
-            setAuthToken(access); // Perbarui token internal
+            setAuthToken(access); 
             resolve(access);
           })
           .catch(err => {
@@ -53,26 +57,13 @@ apiClient.interceptors.response.use(
         });
       }
 
-      return refreshTokenPromise.then(() => {
-        // Ulangi request dengan token baru yang sudah ada di header default
+      return refreshTokenPromise.then(access => {
         return apiClient(originalRequest);
       });
     }
     
-    if (error.response?.status === 401 && originalRequest._retry) {
-        return new Promise(() => {}); 
-    }
-
     return Promise.reject(error);
   }
 );
-
-apiClient.interceptors.request.use(config => {
-    const csrfToken = Cookies.get('csrftoken');
-    if (csrfToken) {
-        config.headers['X-CSRFToken'] = csrfToken;
-    }
-    return config;
-});
 
 export default apiClient;

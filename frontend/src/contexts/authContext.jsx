@@ -11,54 +11,47 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true); // Mulai dengan status loading
   const navigate = useNavigate();
 
-  useEffect(() => {
+useEffect(() => {
     const checkAuthStatus = async () => {
-      const storedUser = localStorage.getItem('user');
-
-      if (storedUser) {
-        // Optimistic Login: Langsung set user agar UI tidak flicker
-        setUser(JSON.parse(storedUser));
-        try {
-          // Coba dapatkan access token baru secara diam-diam
-          const response = await apiClient.post('/auth/token/refresh/');
-          setAuthToken(response.data.access);
-        } catch (error) {
-          // Jika refresh token gagal, berarti sesi benar-benar tidak valid. Logout paksa.
-          console.error("Refresh token gagal, sesi tidak valid.", error);
-          setUser(null);
-          localStorage.removeItem('user');
-          setAuthToken(null);
+      // 1. Ambil CSRF Token dulu dari JSON body
+      try {
+        const csrfRes = await apiClient.get('/users/csrf-cookie/');
+        const csrfToken = csrfRes.data.csrfToken;
+        
+        // 2. Pasang ke Header Global Axios
+        if (csrfToken) {
+            apiClient.defaults.headers.common['X-CSRFToken'] = csrfToken;
         }
+      } catch (e) {
+        console.error("Gagal ambil CSRF", e);
       }
-      
-      // Selesai loading, baik ada user atau tidak
+
+      const storedUser = localStorage.getItem('user');
+      if (storedUser) {
+          // ... logika cek user lama
+      }
       setLoading(false);
     };
-
     checkAuthStatus();
-  }, []); // Hanya berjalan sekali saat aplikasi dimuat
+  }, []);
 
-  const login = async (username, password) => {
+const login = async (username, password) => {
     try {
-      await apiClient.get('/users/csrf-cookie/');
+      // Panggil lagi untuk memastikan token terbaru sebelum POST login
+      const csrfRes = await apiClient.get('/users/csrf-cookie/');
+      const csrfToken = csrfRes.data.csrfToken;
+      apiClient.defaults.headers.common['X-CSRFToken'] = csrfToken;
+
       const response = await apiClient.post('/auth/login/', { username, password });
       
       const { access, user: userData } = response.data;
-
       setUser(userData);
       localStorage.setItem('user', JSON.stringify(userData));
       setAuthToken(access);
       
       navigate('/');
     } catch (error) {
-      // Alih-alih menampilkan toast di sini, kita lempar error-nya
-      // agar bisa ditangkap oleh komponen Login
-      if (error.response && error.response.data) {
-          // Ambil pesan error spesifik dari backend
-          const errorMessages = Object.values(error.response.data).flat();
-          throw new Error(errorMessages[0] || 'Login gagal.');
-      }
-      throw new Error('Terjadi kesalahan. Periksa koneksi Anda.');
+      toast.error('Login gagal! Periksa kembali username dan password.');
     }
   };
 
