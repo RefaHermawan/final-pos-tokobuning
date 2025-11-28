@@ -165,6 +165,7 @@ CSRF_TRUSTED_ORIGINS = ["https://tokobuning.vercel.app",
                         "https://tokobuning.up.railway.app",
                         ]
 SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_SAMESITE = 'Lax'
 
 AUTH_USER_MODEL = 'users.User'
 CORS_ALLOW_HEADERS = [
