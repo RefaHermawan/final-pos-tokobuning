@@ -1,0 +1,67 @@
+# -------------------------------------------------------
+# Aturan untuk Frontend (Vite/React)
+# -------------------------------------------------------
+
+# Log
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dependensi
+/frontend/node_modules
+
+# Build output
+/frontend/dist
+/frontend/dist-ssr
+
+# File environment lokal
+/frontend/.env.local
+/frontend/.env.*.local
+
+# Editor & OS
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+
+# -------------------------------------------------------
+# Aturan untuk Backend (Django/Python)
+# -------------------------------------------------------
+
+# Virtual Environment
+/backend/venv/
+
+# Cache Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# File environment backend (SANGAT PENTING)
+/backend/.env
+
+# File database lokal (jika Anda pernah menggunakan SQLite)
+/backend/db.sqlite3
+/backend/db.sqlite3-journal
+
+# File statis yang dikumpulkan Django
+/backend/staticfiles/
+
+
+# -------------------------------------------------------
+# Aturan Umum
+# -------------------------------------------------------
+
+# File konfigurasi OS
+.DS_Store
+Thumbs.db

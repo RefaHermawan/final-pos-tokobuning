@@ -1,0 +1,220 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #1d4ed8;
+  --color-accent: #eea724;
+  --color-secondary: #60a5fa;
+  --color-background: #f8f8f8;
+  --color-surface: #ffffff;
+  --color-light-gray: #e5e7eb;
+  --color-text-title: #111827;
+  --color-text-main: #374151;
+  --color-text-secondary: #6b7280;
+  --color-success: #16a34a;
+  --color-error: #dc2626;
+  --color-transparant: #ffffff00;
+
+  --font-family-sans: "Inter", sans-serif;
+  --font-family-serif: "Merriweather", serif;
+  --font-family-mono: "Courier New", monospace;
+
+  --scrollbar-track-color: var(--color-surface);
+  --scrollbar-thumb-color: var(--color-light-gray);
+  --scrollbar-thumb-hover-color: var(--color-text-secondary);
+  --scrollbar-track-color-second: var(--color-transparant);
+}
+
+:root.dark {
+  --color-primary: #60a5fa;
+  --color-accent: #fbf13c;
+  --color-secondary: #3b82f6;
+  --color-background: #0f172a;
+  --color-surface: #1e293b;
+  --color-light-gray: #334155;
+  --color-text-title: #ffffff;
+  --color-text-main: #e2e8f0;
+  --color-text-secondary: #94a3b8;
+  --color-success: #22c55e;
+  --color-error: #f87171;
+}
+
+/* Tambahkan ke global CSS */
+.animate-fade-in {
+  animation: fadeIn 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.animate-fade-in-up {
+  animation: fadeInUp 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@layer components {
+  /* Style ini HANYA akan aktif saat mencetak */
+  @media print {
+    @page {
+      size: auto; /* Ukuran kertas otomatis */
+      margin: 0mm; /* Hilangkan margin */
+    }
+
+    body * {
+      visibility: hidden;
+    }
+    .print-receipt,
+    .print-receipt * {
+      visibility: visible;
+    }
+    .print-receipt {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+    }
+  }
+
+  /* Style untuk komponen struk itu sendiri */
+  .print-receipt {
+    font-family: "Courier New", monospace;
+    font-size: 10px;
+    color: black;
+    background-color: white;
+    padding: 5mm;
+    width: 76mm; /* Lebar umum kertas struk thermal */
+  }
+  .receipt-header,
+  .receipt-footer {
+    text-align: center;
+  }
+  .store-name {
+    font-size: 14px;
+    font-weight: bold;
+  }
+  .dashed-line {
+    border-top: 1px dashed black;
+    margin: 0.4rem 0;
+  }
+  .item-table {
+    width: 100%;
+  }
+  .item-line-1,
+  .item-line-2,
+  .summary-line {
+    display: flex;
+    justify-content: space-between;
+  }
+  .item-line-2 {
+    font-size: 9px;
+  }
+  .summary-line span:first-child {
+    text-align: left;
+  }
+  .summary-line span:last-child {
+    text-align: right;
+  }
+  .thank-you {
+    margin-top: 0.5rem;
+  }
+
+  .input-style {
+    @apply p-2 border  rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all;
+  }
+  .btn-primary {
+    @apply bg-primary text-white font-medium py-2 px-6 rounded-lg hover:bg-primary transition-colors;
+  }
+  .btn-secondary {
+    @apply text-primary font-medium py-2 px-4 rounded-lg hover:bg-primary/10 transition-colors;
+  }
+  .btn-icon {
+    @apply p-2 rounded-full hover:bg-gray-100 transition-colors;
+  }
+
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Untuk Chrome, Safari, Edge, dan browser berbasis Webkit lainnya */
+  ::-webkit-scrollbar {
+    width: 8px; /* Lebar scrollbar vertikal */
+    height: 8px; /* Tinggi scrollbar horizontal */
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: var(--scrollbar-track-color-second);
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb-color);
+    border-radius: 10px;
+    /* Beri sedikit 'padding' di sekitar thumb */
+    border: 1px solid var(--scrollbar-track-color);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--scrollbar-thumb-hover-color);
+  }
+  .input-style-modern {
+    @apply w-full px-3 py-2 bg-background/80 border-2 border-light-gray rounded-lg text-text-main focus:ring-2 focus:ring-accent focus:border-accent transition-all;
+  }
+  .label-style {
+    @apply text-sm font-semibold text-text-main mb-1 block;
+  }
+  .input-icon-style {
+    @apply absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-text-secondary;
+  }
+  .chip-style {
+    @apply px-3 py-1 bg-background/80 text-text-main rounded-full text-sm hover:bg-primary/10 hover:text-primary font-semibold border border-light-gray/50;
+  }
+}
+
+@layer utilities {
+  @keyframes scan-line {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(250px); /* Should match qrbox height */
+    }
+  }
+  .animate-scan-line {
+    animation: scan-line 3s ease-in-out infinite alternate;
+  }
+}
+
+@layer utilities {
+  .login-background-grid {
+    background-color: var(--color-background);
+    /* Gradien dasar */
+    background-image: 
+      linear-gradient(to bottom, transparent, var(--color-background)), 
+      /* Pola titik halus */
+      radial-gradient(var(--color-secondary) 1px, transparent 1px);
+    background-size: 100% 150%, 25px 25px;
+    /* Animasi pergerakan titik */
+    animation: grid-move 20s linear infinite;
+  }
+}
+
+/* Keyframes untuk animasi pergerakan */
+@keyframes grid-move {
+  from { background-position: 0 0; }
+  to { background-position: -200px -200px; }
+}
+
