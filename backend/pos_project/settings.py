@@ -167,7 +167,7 @@ CSRF_TRUSTED_ORIGINS = os.environ.get(
 ).split(',')
 
 SESSION_COOKIE_SECURE = True
-SESSION_COOKIE_SAMESITE = 'Lax'
+SESSION_COOKIE_SAMESITE = 'None'
 
 AUTH_USER_MODEL = 'users.User'
 CORS_ALLOW_HEADERS = [
@@ -205,7 +205,7 @@ REST_AUTH = {
     'JWT_AUTH_COOKIE': 'my-refresh-token', # Nama cookie untuk refresh token
     'JWT_AUTH_HTTPONLY': True, # WAJIB True untuk keamanan
     'JWT_AUTH_SECURE': True, # Ganti menjadi True saat deploy ke HTTPS
-    'JWT_AUTH_SAMESITE': 'Lax',
+    'JWT_AUTH_SAMESITE': 'None',
     'USER_DETAILS_SERIALIZER': 'users.serializers.UserSerializer', # Pastikan ini ada
     'TOKEN_SERIALIZER': 'dj_rest_auth.serializers.TokenSerializer', # Gunakan serializer default
     'JWT_AUTH_REFRESH_COOKIE': 'my-refresh-token', 
@@ -214,5 +214,5 @@ REST_AUTH = {
 
 # Pengaturan untuk keamanan CSRF
 CSRF_COOKIE_HTTPONLY = False
-CSRF_COOKIE_SAMESITE = 'Lax'
+CSRF_COOKIE_SAMESITE = 'None'
 CSRF_COOKIE_SECURE = True 
