@@ -31,7 +31,8 @@ DEBUG = os.environ.get('DEBUG') == 'True'
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '127.0.0.1,localhost').split(',')
 # Application definition
-CSRF_TRUSTED_ORIGINS = ["https://tokobuning.vercel.app",]
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -160,6 +161,11 @@ CORS_ALLOWED_ORIGINS = [
 ]
 CORS_ALLOW_CREDENTIALS = True
 
+CSRF_TRUSTED_ORIGINS = ["https://tokobuning.vercel.app",
+                        "https://tokobuning.up.railway.app",
+                        ]
+SESSION_COOKIE_SECURE = True
+
 AUTH_USER_MODEL = 'users.User'
 CORS_ALLOW_HEADERS = [
     'accept',
@@ -206,4 +212,4 @@ REST_AUTH = {
 # Pengaturan untuk keamanan CSRF
 CSRF_COOKIE_HTTPONLY = False
 CSRF_COOKIE_SAMESITE = 'Lax'
-CSRF_COOKIE_SECURE = True # Ganti menjadi True saat deploy ke HTTPS
+CSRF_COOKIE_SECURE = True # 
