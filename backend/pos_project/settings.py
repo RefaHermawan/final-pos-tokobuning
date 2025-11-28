@@ -32,8 +32,6 @@ DEBUG = os.environ.get('DEBUG') == 'True'
 ALLOWED_HOSTS = ["*"]
 # Application definition
 
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -154,18 +152,24 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOWED_ORIGINS = os.environ.get(
-    'CORS_ALLOWED_ORIGINS', 
-    'http://localhost:5173,http://127.0.0.1:5173'
-).split(',')
-
 CORS_ALLOW_CREDENTIALS = True
 
-CSRF_TRUSTED_ORIGINS = os.environ.get(
-    'CSRF_TRUSTED_ORIGINS', 
-    'http://localhost:5173'
-).split(',')
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "https://tokobuning.vercel.app",
+]
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://tokobuning.vercel.app", 
+    "https://tokobuning.up.railway.app", 
+]
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+CSRF_COOKIE_HTTPONLY = False
+CSRF_COOKIE_SAMESITE = 'None'
+CSRF_COOKIE_SECURE = True 
 SESSION_COOKIE_SECURE = True
 SESSION_COOKIE_SAMESITE = 'None'
 
@@ -212,7 +216,4 @@ REST_AUTH = {
     'LOGIN_SERIALIZER': 'users.serializers.CustomLoginSerializer',
 }
 
-# Pengaturan untuk keamanan CSRF
-CSRF_COOKIE_HTTPONLY = False
-CSRF_COOKIE_SAMESITE = 'None'
-CSRF_COOKIE_SECURE = True 
+
