@@ -1,8 +1,7 @@
-// src/api/axios.js
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-// Variabel ini akan menyimpan token di dalam modul, terisolasi dari state React
+// Variabel ini akan menyimpan token di dalam modul
 let internalAccessToken = null;
 
 // Fungsi ini diekspor agar AuthContext bisa mengatur token awal saat login/logout
@@ -16,7 +15,8 @@ export const setAuthToken = (token) => {
 };
 
 const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000/api',
+  // Hapus fallback hardcoded, pastikan .env Anda benar
+  baseURL: import.meta.env.VITE_API_BASE_URL, 
   withCredentials: true,
 });
 
@@ -27,6 +27,7 @@ apiClient.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
+    // Cek jika error adalah 401 dan belum di-retry
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 
@@ -52,12 +53,16 @@ apiClient.interceptors.response.use(
         });
       }
 
-      return refreshTokenPromise.then(access => {
-        // Gunakan token baru yang sudah disimpan di header default
+      return refreshTokenPromise.then(() => {
+        // Ulangi request dengan token baru yang sudah ada di header default
         return apiClient(originalRequest);
       });
     }
     
+    if (error.response?.status === 401 && originalRequest._retry) {
+        return new Promise(() => {}); 
+    }
+
     return Promise.reject(error);
   }
 );
