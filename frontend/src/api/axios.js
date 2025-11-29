@@ -15,7 +15,6 @@ export const setAuthToken = (token) => {
 };
 
 const apiClient = axios.create({
-  // Hapus fallback hardcoded, pastikan .env Anda benar
   baseURL: import.meta.env.VITE_API_BASE_URL, 
   withCredentials: true,
 });
