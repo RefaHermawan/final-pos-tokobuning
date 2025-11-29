@@ -38,6 +38,17 @@
   --color-error: #f87171;
 }
 
+@layer base {
+  html, body {
+    background-color: var(--color-background); /* Mengambil warna background tema */
+    color: var(--color-text-main);
+    margin: 0;
+    padding: 0;
+    height: 100%; /* Pastikan body mengambil tinggi penuh */
+    overflow: hidden; /* Mencegah scroll pada body, karena scroll ada di dalam MainLayout */
+  }
+}
+
 /* Tambahkan ke global CSS */
 .animate-fade-in {
   animation: fadeIn 0.7s cubic-bezier(0.4, 0, 0.2, 1);
