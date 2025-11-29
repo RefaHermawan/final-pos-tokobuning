@@ -40,12 +40,9 @@
 
 @layer base {
   html, body {
-    background-color: var(--color-background); /* Mengambil warna background tema */
-    color: var(--color-text-main);
     margin: 0;
     padding: 0;
-    height: 100%; /* Pastikan body mengambil tinggi penuh */
-    overflow: hidden; /* Mencegah scroll pada body, karena scroll ada di dalam MainLayout */
+    height: 100%;
   }
 }
 
