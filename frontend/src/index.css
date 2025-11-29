@@ -38,20 +38,6 @@
   --color-error: #f87171;
 }
 
-@layer base {
-  html, body { 
-    margin: 0;
-    padding: 0;
-    /* HAPUS overflow: hidden dari sini! Biarkan default. */
-  }
-  
-  /* Tambahkan ini untuk memastikan root React container bisa penuh */
-  #root {
-    min-height: 100dvh;
-    display: flex;
-  }
-}
-
 /* Tambahkan ke global CSS */
 .animate-fade-in {
   animation: fadeIn 0.7s cubic-bezier(0.4, 0, 0.2, 1);
