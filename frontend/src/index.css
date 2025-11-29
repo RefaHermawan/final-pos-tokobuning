@@ -39,14 +39,16 @@
 }
 
 @layer base {
-  html, body {
-    /* HANYA WARNA. Jangan atur height/overflow di sini */
-    background-color: var(--color-background); 
-    color: var(--color-text-main);
+  html, body { 
     margin: 0;
     padding: 0;
-    /* width: 100% aman, tapi height biarkan auto agar bisa discroll */
-    width: 100%; 
+    /* HAPUS overflow: hidden dari sini! Biarkan default. */
+  }
+  
+  /* Tambahkan ini untuk memastikan root React container bisa penuh */
+  #root {
+    min-height: 100dvh;
+    display: flex;
   }
 }
 
