@@ -56,7 +56,7 @@ const Login = () => {
   };
 
   return (
-    <div className="relative flex items-center justify-center min-h-screen overflow-hidden">
+    <div className="relative flex items-center justify-center min-h-[100dvh] overflow-hidden">
       <div className="absolute inset-0 -z-10 login-background-grid"></div>
 
       <motion.div

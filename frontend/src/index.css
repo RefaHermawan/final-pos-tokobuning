@@ -40,9 +40,13 @@
 
 @layer base {
   html, body {
+    /* HANYA WARNA. Jangan atur height/overflow di sini */
+    background-color: var(--color-background); 
+    color: var(--color-text-main);
     margin: 0;
     padding: 0;
-    height: 100%;
+    /* width: 100% aman, tapi height biarkan auto agar bisa discroll */
+    width: 100%; 
   }
 }
 
