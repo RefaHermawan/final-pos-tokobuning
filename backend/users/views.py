@@ -15,7 +15,6 @@ from rest_framework.response import Response
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework_simplejwt.views import TokenRefreshView
-from django.middleware.csrf import get_token
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -66,12 +65,8 @@ class UserProfileView(APIView):
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 class GetCSRFToken(APIView):
     permission_classes = [AllowAny]
-
     def get(self, request, format=None):
-        # Ambil token secara eksplisit
-        csrf_token = get_token(request) 
-        # Kirim token di dalam body response JSON
-        return Response({ 'success': 'CSRF cookie set', 'csrfToken': csrf_token })
+        return Response({ 'success': 'CSRF cookie set' })
     
 class CSRFExemptTokenRefreshView(TokenRefreshView):
     @method_decorator(csrf_exempt)

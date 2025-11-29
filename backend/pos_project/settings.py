@@ -32,8 +32,6 @@ DEBUG = os.environ.get('DEBUG') == 'True'
 ALLOWED_HOSTS = ["*"]
 # Application definition
 
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -167,6 +165,11 @@ CSRF_TRUSTED_ORIGINS = [
     "https://tokobuning.up.railway.app", 
 ]
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+CSRF_COOKIE_HTTPONLY = False
+CSRF_COOKIE_SAMESITE = 'None'
+CSRF_COOKIE_SECURE = True 
 SESSION_COOKIE_SECURE = True
 SESSION_COOKIE_SAMESITE = 'None'
 
@@ -199,21 +202,19 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
     "ROTATE_REFRESH_TOKENS": True, # Refresh token akan diperbarui setiap kali digunakan
     "BLACKLIST_AFTER_ROTATION": True,
+    "AUTH_HEADER_TYPES": ("Bearer",),
 }
 
 REST_AUTH = {
     'USE_JWT': True,
-    'JWT_AUTH_COOKIE': 'my-refresh-token', # Nama cookie untuk refresh token
-    'JWT_AUTH_HTTPONLY': True, # WAJIB True untuk keamanan
-    'JWT_AUTH_SECURE': True, # Ganti menjadi True saat deploy ke HTTPS
+    'JWT_AUTH_COOKIE': 'my-refresh-token',
+    'JWT_AUTH_HTTPONLY': True,
+    'JWT_AUTH_SECURE': True,
     'JWT_AUTH_SAMESITE': 'None',
-    'USER_DETAILS_SERIALIZER': 'users.serializers.UserSerializer', # Pastikan ini ada
-    'TOKEN_SERIALIZER': 'dj_rest_auth.serializers.TokenSerializer', # Gunakan serializer default
+    'USER_DETAILS_SERIALIZER': 'users.serializers.UserSerializer',
+    'TOKEN_SERIALIZER': 'dj_rest_auth.serializers.TokenSerializer',
     'JWT_AUTH_REFRESH_COOKIE': 'my-refresh-token', 
     'LOGIN_SERIALIZER': 'users.serializers.CustomLoginSerializer',
 }
 
-# Pengaturan untuk keamanan CSRF
-CSRF_COOKIE_HTTPONLY = False
-CSRF_COOKIE_SAMESITE = 'None'
-CSRF_COOKIE_SECURE = True 
+
