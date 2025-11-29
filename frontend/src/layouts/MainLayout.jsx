@@ -42,7 +42,7 @@ const MainLayout = () => {
   }, []);
   
   return (
-    <div className="flex h-screen bg-background overflow-hidden">
+    <div className="flex min-h-screen bg-background overflow-hidden">
       <ToastContainer
         position="top-right"
         autoClose={3000}
