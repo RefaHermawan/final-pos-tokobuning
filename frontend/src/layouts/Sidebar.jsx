@@ -75,7 +75,7 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
     <motion.aside
       animate={{ width: isCollapsed ? "5.5rem" : "16rem" }}
       transition={{ type: "spring", stiffness: 300, damping: 25 }}
-      className="relative flex-shrink-0 bg-background backdrop-blur-xl border-r border-light-gray flex flex-col shadow-xs z-40"
+      className="relative flex-shrink-0 bg-surface backdrop-blur-xl border-r border-light-gray flex flex-col shadow-xs z-40"
     >
       <div className="h-20 flex items-center justify-center flex-shrink-0 px-4 border-b border-light-gray overflow-hidden">
         <motion.div

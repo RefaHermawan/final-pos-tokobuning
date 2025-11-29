@@ -59,7 +59,7 @@ const Header = () => {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ type: 'spring', stiffness: 100, damping: 15 }}
-      className="sticky top-0 z-30 bg-background backdrop-blur-xl h-20 px-6 flex justify-between items-center border-b border-light-gray/50 shadow-xs"
+      className="sticky top-0 z-30 bg-surface backdrop-blur-xl h-20 px-6 flex justify-between items-center border-b border-light-gray/50 shadow-xs"
     >
       {/* Kiri: Judul Halaman Dinamis dengan Ikon */}
       <div className="flex items-center gap-3">
