@@ -47,37 +47,37 @@ const router = createBrowserRouter([
           // Halaman yang bisa diakses SEMUA peran
           { 
             index: true, 
-            element: <ProtectedRoute allowedRoles={['admin', 'kasir']}><Dashboard /></ProtectedRoute> 
+            element: <ProtectedRoute allowedRoles={['admin', 'kasir', 'guest']}><Dashboard /></ProtectedRoute> 
           },
           { 
             path: 'kasir', 
-            element: <ProtectedRoute allowedRoles={['admin', 'kasir']}><Kasir /></ProtectedRoute> 
+            element: <ProtectedRoute allowedRoles={['admin', 'kasir', 'guest']}><Kasir /></ProtectedRoute> 
           },
           { 
             path: 'profil', 
-            element: <ProtectedRoute allowedRoles={['admin', 'kasir']}><ProfilePage /></ProtectedRoute> 
+            element: <ProtectedRoute allowedRoles={['admin', 'kasir', 'guest']}><ProfilePage /></ProtectedRoute> 
           },
           
           // Halaman KHUSUS ADMIN
           { 
             path: 'produk', 
-            element: <ProtectedRoute allowedRoles={['admin']}><Produk /></ProtectedRoute> 
+            element: <ProtectedRoute allowedRoles={['admin', 'guest']}><Produk /></ProtectedRoute> 
           },
           { 
             path: 'stok', 
-            element: <ProtectedRoute allowedRoles={['admin']}><Stok /></ProtectedRoute> 
+            element: <ProtectedRoute allowedRoles={['admin', 'guest']}><Stok /></ProtectedRoute> 
           },
           { 
             path: 'supplier', 
-            element: <ProtectedRoute allowedRoles={['admin']}><Supplier /></ProtectedRoute> 
+            element: <ProtectedRoute allowedRoles={['admin', 'guest']}><Supplier /></ProtectedRoute> 
           },
           { 
             path: 'laporan/transaksi', 
-            element: <ProtectedRoute allowedRoles={['admin']}><LaporanTransaksi /></ProtectedRoute> 
+            element: <ProtectedRoute allowedRoles={['admin', 'guest']}><LaporanTransaksi /></ProtectedRoute> 
           },
           { 
             path: 'kasbon', 
-            element: <ProtectedRoute allowedRoles={['admin']}><Kasbon /></ProtectedRoute> 
+            element: <ProtectedRoute allowedRoles={['admin', 'guest']}><Kasbon /></ProtectedRoute> 
           },
           { 
             path: 'pengaturan', 

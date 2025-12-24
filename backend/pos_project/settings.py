@@ -100,17 +100,6 @@ DATABASES = {
     }
 }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'sembako_db',        # Nama database yang Anda buat
-#         'USER': 'postgres',      # User yang Anda buat
-#         'PASSWORD': 'portgasdace123', # Password yang Anda set
-#         'HOST': 'localhost',     # Atau IP server database Anda
-#         'PORT': '5432',          # Port default PostgreSQL
-#     }
-# }
-
 database_url = os.environ.get('DATABASE_URL')
 if database_url:
     DATABASES['default'] = dj_database_url.parse(

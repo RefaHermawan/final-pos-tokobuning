@@ -170,6 +170,7 @@ const UserFormModal = ({ isOpen, onClose, onSuccess, userToEdit }) => {
                 >
                   <option value="kasir">Kasir</option>
                   <option value="admin">Admin</option>
+                  <option value="guest">Guest</option> 
                 </select>
               </div>
             </motion.div>
