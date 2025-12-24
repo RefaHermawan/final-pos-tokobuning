@@ -8,6 +8,7 @@ class User(AbstractUser):
     class Role(models.TextChoices):
         ADMIN = 'admin', 'Admin'
         KASIR = 'kasir', 'Kasir'
+        GUEST = 'guest', 'Guest'
 
     # Menambahkan field 'role' dengan pilihan dan nilai default
     role = models.CharField(

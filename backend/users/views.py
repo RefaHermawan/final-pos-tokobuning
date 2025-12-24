@@ -3,6 +3,7 @@
 from rest_framework import viewsets
 from .models import User
 from .serializers import UserSerializer, UserUpdateSerializer
+from .permissions import IsAdminRole
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from django.utils import timezone
@@ -31,7 +32,7 @@ class UserViewSet(viewsets.ModelViewSet):
             return UserSerializer
 
 class UserProfileView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAdminRole]
 
     def get(self, request, *args, **kwargs):
         user = request.user
